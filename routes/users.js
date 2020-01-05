@@ -54,5 +54,16 @@ router.post('/login', (req, res, next) => {
         }).catch(next);
 });
 
+router.get('/me', auth.verifyUser, (req, res, next) => {
+    res.json({ _id: req.user._id, email: req.user.email, fullname: req.user.fullname, password: req.user.password, phone: req.user.phone, mobilephone: req.user.mobilephone, streetname: req.user.streetname, arealocation: req.user.arealocation, cityname: req.user.cityname, image: req.user.image });
+});
+
+router.put('/me', auth.verifyUser, (req, res, next) => {
+    User.findByIdAndUpdate(req.user._id, { $set: req.body }, { new: true })
+        .then((user) => {
+            res.json({ _id: req.user._id, email: req.user.email, fullname: req.user.fullname, password: req.user.password, phone: req.user.phone, mobilephone: req.user.mobilephone, streetname: req.user.streetname, arealocation: req.user.arealocation, cityname: req.user.cityname, image: req.user.image });
+        }).catch(next);
+});
+
 
 module.exports= router;
