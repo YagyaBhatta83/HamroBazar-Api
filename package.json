@@ -1,0 +1,25 @@
+{
+  "name": "hamrobazar-api",
+  "version": "1.0.0",
+  "description": "HamroBazar API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YagyaBhatta83/HamroBazar-Api.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/YagyaBhatta83/HamroBazar-Api/issues"
+  },
+  "homepage": "https://github.com/YagyaBhatta83/HamroBazar-Api#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  }
+}
