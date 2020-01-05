@@ -30,26 +30,8 @@ const userSchema = new mongoose.Schema({
         type:String,
         required:true
     },
-    subscribe: {
-        type: Checkbox,
-        required:true
-    },
-    hidephone: {
-        type: Checkbox,
-        required:true
-    },
-    terms: {
-        type: Checkbox,
-        required:true
-    },
     image:{
         type:String,
-    },
-    admin: {
-        type: Boolean,
-        default: false
-    },
-
-
+    }
 });
 module.exports = mongoose.model('User', userSchema);
