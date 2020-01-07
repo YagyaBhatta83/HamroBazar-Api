@@ -1,6 +1,5 @@
 const jwt = require('jsonwebtoken');
 const User = require('./models/users');
-
 module.exports.verifyUser = (req, res, next) => {
     let authHeader = req.headers.authorization;
     if (!authHeader) {
@@ -16,8 +15,8 @@ module.exports.verifyUser = (req, res, next) => {
         throw new Error('Token could not be verified!');
     }
     User.findById(data._id)
-        .then((user) => {
+        .then(user => {
             req.user = user;
             next();
-        })
-}
+        });
+};

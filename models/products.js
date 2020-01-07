@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const productsScheme = new mongoose.Schema({
+const productScheme = new mongoose.Schema({
     name:{
         type:String,
         required:true
@@ -19,7 +19,9 @@ const productsScheme = new mongoose.Schema({
     },
     createdBy:{
         type:mongoose.Schema.Types.ObjectId,
-        ref:User
+        ref:"User"
     },
-    username:String
+    email:String
 });
+
+module.exports = mongoose.model("Product", productScheme);

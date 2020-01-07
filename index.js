@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require("mongoose");
 const userRouter = require('./routes/users');
+const productRoute = require("./routes/products");
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({extended: true }));
@@ -15,7 +16,9 @@ mongoose.connect('mongodb://localhost:27017/hamrobazar', { useNewUrlParser: true
         console.log("Successfully connected to MongodB server");
     }, (err) => console.log(err));
 
-    app.use('/users', userRouter);
+    app.use('/User', userRouter);
+    app.use("/products", productRoute);
+    app.use(auth.verifyUser);
 
 
 
