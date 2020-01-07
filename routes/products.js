@@ -3,10 +3,22 @@ const path = require("path");
 const jwt = require("jsonwebtoken");
 const auth = require("../auth");
 const products = require('../models/products');
-
 const router = express.Router();
 
 router.route('/')
+
+router.get("/", (req, res)=>{
+    products.find({}, (err,allprod)=>{
+        if(err){
+            let err = new Error("No product found !");
+            err.status = 401;
+            return next(err);
+        }
+        res.json({
+            allprod
+        });
+    });
+});
 
 router.post("/new", auth.verifyUser, (req, res) => {
     var CreatedBy = {
