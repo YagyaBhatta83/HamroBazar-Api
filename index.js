@@ -1,32 +1,42 @@
-const express = require('express');
+const express = require("express");
 const mongoose = require("mongoose");
-const userRouter = require('./routes/users');
-const productRoute = require("./routes/products");
+const fileUpload = require("express-fileupload");
+const userRouter = require("./routes/users");
+const dotenv = require("dotenv").config();
+const auth = require("./auth");
+const productRoute = require("./routes/product");
+
 const app = express();
 app.use(express.json());
-app.use(express.urlencoded({extended: true }));
+app.use(express.urlencoded({ extended: true }));
 
+app.use(express.static(__dirname + "/public"));
 
-const auth = require('./auth');
+mongoose
+  .connect("mongodb://localhost/hamrobazar", {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false,
+    useCreateIndex: true
+  })
+  .then(
+    db => {
+      console.log("Successfully connected to MongodB server");
+    },
+    err => console.log(err)
+  );
 
+app.use(fileUpload());
+app.use("/users", userRouter);
+app.use("/products", productRoute);
+app.use(auth.verifyUser);
 
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.statusCode = 500;
+  res.json({ status: err.message });
+});
 
-mongoose.connect('mongodb://localhost:27017/hamrobazar', { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true })
-    .then((db) => {
-        console.log("Successfully connected to MongodB server");
-    }, (err) => console.log(err));
-
-    app.use('/User', userRouter);
-    app.use("/products", productRoute);
-    app.use(auth.verifyUser);
-
-
-
-
-
-    
-    app.listen(3000, () => {
-        console.log(`App is running at localhost:3000`);
-    });
-
-   
+app.listen(process.env.PORT ||3000, () => {
+  console.log(`App is running at localhost:${process.env.PORT}`);
+});

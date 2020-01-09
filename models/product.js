@@ -13,15 +13,21 @@ const productScheme = new mongoose.Schema({
         type:String,
         required:true
     },
+    condition:{
+        type:String,
+        required:true
+    },
     createdAt:{
         type:Date,
         default:Date.now()
     },
-    createdBy:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"User"
-    },
-    email:String
+    CreatedBy: {
+        id: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "User"
+        },
+        username: String
+      }
 });
 
 module.exports = mongoose.model("Product", productScheme);
